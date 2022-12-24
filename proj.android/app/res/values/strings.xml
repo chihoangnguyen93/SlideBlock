@@ -2,6 +2,5 @@
     <string name="app_name">SlideBlockPuzzle</string>
     <string name="admod_id">ca-app-pub-2381211844174227~1671360697</string>
     <string name="interstitialId">ca-app-pub-2381211844174227/2586068681</string>
-    <string name="bottom_bannerId">ca-app-pub-2381211844174227/2028068432</string>
-    <string name="top_bannerId">ca-app-pub-2381211844174227/4760558461</string>
+    <string name="bannerId">ca-app-pub-2381211844174227/4760558461</string>
 </resources>

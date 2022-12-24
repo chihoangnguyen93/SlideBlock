@@ -60,6 +60,7 @@ list(APPEND GAME_SOURCE
      Classes/LevelGame.cpp
      Classes/LevelScene.cpp
      Classes/ModeGameScene.cpp
+     Classes/CustomUserDefault.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -75,6 +76,7 @@ list(APPEND GAME_HEADER
      Classes/LevelGame.h
      Classes/LevelScene.h
      Classes/ModeGameScene.h
+     Classes/CustomUserDefault.h
      )
 
 if(ANDROID)

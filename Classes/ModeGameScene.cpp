@@ -24,53 +24,49 @@ ModeGameScene::~ModeGameScene() {}
 bool ModeGameScene::ModeGameScene::init() {
   if(!Layer::init()) { return false; }
   
-  int adMode = UserDefault::getInstance()->getIntegerForKey("ADFULLMODE", 1);
-  UserDefault::getInstance()->setIntegerForKey("ADFULLMODE", adMode + 1);
+  winSize = Director::getInstance()->getWinSize();
+  Sprite* backgroundSprite = Sprite::create("bgHomeScene.png");
+  backgroundSprite->setPosition(Vec2(winSize.width/2, winSize.height/2));
+  this->addChild(backgroundSprite,1);
   
-  winsize = Director::getInstance()->getWinSize();
-  Sprite* spBg = Sprite::create("bgHomeScene.png");
-  spBg->setPosition(Vec2(winsize.width/2, winsize.height/2));
-  this->addChild(spBg,1);
-  
-  /* create background */
   Sprite* bgMode = Sprite::create("bg_mode.png");
-  bgMode->setPosition(Vec2(winsize.width/2, winsize.height*0.55));
+  bgMode->setPosition(Vec2(winSize.width/2, winSize.height*0.55));
   this->addChild(bgMode,2);
   
   this->createButtonModeGame();
   
-  ui::Button* btnBack = ui::Button::create("backscene_normal.png","backscene_pressed.png","",ui::Widget::TextureResType::LOCAL);
-  btnBack->setPosition(Vec2(btnBack->getContentSize().width/2,btnBack->getContentSize().height/2));
-  btnBack->setTag(TAG_BTN_BACK_MODEGAME);
-  btnBack->addClickEventListener(CC_CALLBACK_1(ModeGameScene::btnClickButtonModeGame,this));
-  this->addChild(btnBack,1234);
+  ui::Button* backButton = ui::Button::create("backscene_normal.png","backscene_pressed.png","",ui::Widget::TextureResType::LOCAL);
+  backButton->setPosition(Vec2(backButton->getContentSize().width/2,backButton->getContentSize().height/2));
+  backButton->setTag(TAG_BTN_BACK_MODE_GAME);
+  backButton->addClickEventListener(CC_CALLBACK_1(ModeGameScene::handleClickButtonModeGame,this));
+  this->addChild(backButton,1234);
   AdmobManager::getInstance()->showBanner(AdmobPosition::TopCenter);
   return true;
 }
 
 void ModeGameScene::createButtonModeGame() {
   ui::Button* btnEasy = ui::Button::create("easy_normal.png","easy_pressed.png","",ui::Widget::TextureResType::LOCAL);
-  btnEasy->setPosition(Vec2(winsize.width/2, winsize.height *0.76));
-  btnEasy->addClickEventListener(CC_CALLBACK_1(ModeGameScene::btnClickButtonModeGame,this));
-  btnEasy->setTag(TAG_BTN_EASY_MODEGAME);
+  btnEasy->setPosition(Vec2(winSize.width/2, winSize.height *0.76));
+  btnEasy->addClickEventListener(CC_CALLBACK_1(ModeGameScene::handleClickButtonModeGame,this));
+  btnEasy->setTag(TAG_BTN_EASY_MODE_GAME);
   this->addChild(btnEasy,10);
   
   ui::Button* btnMedium = ui::Button::create("medium_normal.png","medium_pressed.png","",ui::Widget::TextureResType::LOCAL);
-  btnMedium->setPosition(Vec2(winsize.width/2, btnEasy->getPositionY() - btnMedium->getContentSize().height*1.1));
-  btnMedium->addClickEventListener(CC_CALLBACK_1(ModeGameScene::btnClickButtonModeGame,this));
-  btnMedium->setTag(TAG_BTN_MEDIUM_MODEGAME);
+  btnMedium->setPosition(Vec2(winSize.width/2, btnEasy->getPositionY() - btnMedium->getContentSize().height*1.1));
+  btnMedium->addClickEventListener(CC_CALLBACK_1(ModeGameScene::handleClickButtonModeGame,this));
+  btnMedium->setTag(TAG_BTN_MEDIUM_MODE_GAME);
   this->addChild(btnMedium,10);
   
   ui::Button* btnHard = ui::Button::create("hard_normal.png","hard_pressed.png","",ui::Widget::TextureResType::LOCAL);
-  btnHard->setPosition(Vec2(winsize.width/2, btnMedium->getPositionY() - btnHard->getContentSize().height*1.1));
-  btnHard->addClickEventListener(CC_CALLBACK_1(ModeGameScene::btnClickButtonModeGame,this));
-  btnHard->setTag(TAG_BTN_HARD_MODEGAME);
+  btnHard->setPosition(Vec2(winSize.width/2, btnMedium->getPositionY() - btnHard->getContentSize().height*1.1));
+  btnHard->addClickEventListener(CC_CALLBACK_1(ModeGameScene::handleClickButtonModeGame,this));
+  btnHard->setTag(TAG_BTN_HARD_MODE_GAME);
   this->addChild(btnHard,10);
   
   ui::Button* btnExpert = ui::Button::create("expert_normal.png","expert_pressed.png","",ui::Widget::TextureResType::LOCAL);
-  btnExpert->setPosition(Vec2(winsize.width/2, btnHard->getPositionY() - btnExpert->getContentSize().height*1.1));
-  btnExpert->addClickEventListener(CC_CALLBACK_1(ModeGameScene::btnClickButtonModeGame,this));
-  btnExpert->setTag(TAG_BTN_EXPERT_MODEGAME);
+  btnExpert->setPosition(Vec2(winSize.width/2, btnHard->getPositionY() - btnExpert->getContentSize().height*1.1));
+  btnExpert->addClickEventListener(CC_CALLBACK_1(ModeGameScene::handleClickButtonModeGame,this));
+  btnExpert->setTag(TAG_BTN_EXPERT_MODE_GAME);
   this->addChild(btnExpert,10);
   
   Label* lbEasyLevel = Label::createWithTTF("100", "HKABEL.TTF", 36);
@@ -94,43 +90,26 @@ void ModeGameScene::createButtonModeGame() {
   this->addChild(lbExpertLevel,11);
 }
 
-void ModeGameScene::btnClickButtonModeGame(Ref* pSender) {
+void ModeGameScene::handleClickButtonModeGame(Ref* pSender) {
   int tag = ((ui::Button*)pSender)->getTag();
-  if(tag == TAG_BTN_BACK_MODEGAME) {
-    Director::getInstance()->replaceScene(HomeScene::createHomeScene());
-  }
-  
-  if(tag == TAG_BTN_EASY_MODEGAME) {
-    Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EASY_LEVEL,DIRECTOR_MODE));
-  }
-
-  if(tag == TAG_BTN_MEDIUM_MODEGAME) {
-    Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(MEDIUM_LEVEL,DIRECTOR_MODE));
-  }
-
-  if(tag == TAG_BTN_HARD_MODEGAME) {
-    Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(HARD_LEVEL,DIRECTOR_MODE));
-  }
-  
-  if(tag == TAG_BTN_EXPERT_MODEGAME) {
-    Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EXPERT_LEVEL,DIRECTOR_MODE));
-  }
-}
-
-void ModeGameScene::onEnter() {
-  Layer::onEnter();
-  EventListenerKeyboard *keyboardEvent = EventListenerKeyboard::create();
-  keyboardEvent->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event*){
-    if(keyCode == EventKeyboard::KeyCode::KEY_BACK){
+  switch (tag) {
+    case TAG_BTN_BACK_MODE_GAME:
       Director::getInstance()->replaceScene(HomeScene::createHomeScene());
-    }
-  };
-  Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardEvent, this);
+      break;
+    case TAG_BTN_EASY_MODE_GAME:
+      Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EASY_LEVEL,DIRECTOR_TO_MODE_SCENE));
+      break;
+    case TAG_BTN_MEDIUM_MODE_GAME:
+      Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(MEDIUM_LEVEL,DIRECTOR_TO_MODE_SCENE));
+      break;
+      
+    case TAG_BTN_HARD_MODE_GAME:
+      Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(HARD_LEVEL,DIRECTOR_TO_MODE_SCENE));
+      break;
+    case TAG_BTN_EXPERT_MODE_GAME:
+      Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EXPERT_LEVEL,DIRECTOR_TO_MODE_SCENE));
+      break;
+    default: break;
+  }
 }
-
-void ModeGameScene::onExit() {
-  Layer::onExit();
-  Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(this);
-}
-
 

@@ -15,13 +15,8 @@ USING_NS_CC;
 
 class GameObject: public Sprite {
 private:
-  int typeDirection;
-  int typeObject;
-  int lengthObject;
-  int heightObject;
-  
-  Vec2 headMatrix;
-  Vec2 lastMatrix;
+  int typeDirection, typeObject, lengthObject, heightObject;  
+  Vec2 headMatrix, lastMatrix;
 public:
   GameObject();
   virtual ~GameObject();
@@ -37,7 +32,7 @@ public:
   void setTypeObject(int type);
   int getTypeObject();
   
-  void runActionGameWin(const Vec2& pos);
+  void runWinAnimation(const Vec2& pos, std::function<void(void)> completion);
   int getTypeDirection();
 };
 

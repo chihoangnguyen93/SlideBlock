@@ -30,8 +30,13 @@ void GameObject::setPositionObject(const Vec2& pos) {
   this->setPosition(pos);
 }
 
-void GameObject::runActionGameWin(const Vec2& pos) {
-  auto moveAction = MoveTo::create(0.12, pos);
+void GameObject::runWinAnimation(const Vec2& pos, std::function<void(void)> completion) {
+  auto moveAction = MoveTo::create(TIME_RUN_WIN_ANIMATION, pos);
+  CallFunc* completionAction = CallFunc::create([=]() { completion(); });
+  runAction(cocos2d::Sequence::create(moveAction,
+                                      DelayTime::create(TIME_RUN_WIN_ANIMATION),
+                                      completionAction,
+                                      NULL));
   this->runAction(Sequence::create(moveAction, NULL));
 }
 

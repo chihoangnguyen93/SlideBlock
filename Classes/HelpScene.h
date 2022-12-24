@@ -16,7 +16,7 @@ USING_NS_CC;
 
 class HelpScene : public Layer {
 public:
-  Size winsize;
+  Size winSize;
   cocos2d::ui::PageView* pageView;
 public:
   virtual bool init();
@@ -25,8 +25,6 @@ public:
   void pageViewEvent(Ref *pSender, cocos2d::ui::PageView::EventType type);
   void btnClickButtonNextPrevious(Ref* pSender);
   CREATE_FUNC(HelpScene);
-  void onEnter();
-  void onExit();
 };
 
 #endif /* HelpScene_h */

@@ -9,8 +9,8 @@ android {
         applicationId "com.boring.slideblockpuzzle"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 8
+        versionName "1.0"
 
         externalNativeBuild {
             if (PROP_BUILD_TYPE == 'ndk-build') {

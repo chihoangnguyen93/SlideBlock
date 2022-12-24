@@ -14,20 +14,16 @@
 #include "ui/CocosGUI.h"
 USING_NS_CC;
 
-class ModeGameScene : public Layer
-{
+class ModeGameScene : public Layer {
 public:
-  Size winsize;
+  Size winSize;
 public:
   virtual bool init();
   static Scene* createModeGameScene();
   virtual ~ModeGameScene();
   CREATE_FUNC(ModeGameScene);
   void createButtonModeGame();
-  
-  void btnClickButtonModeGame(Ref* pSender);
-  void onEnter();
-  void onExit();
+  void handleClickButtonModeGame(Ref* pSender);
 };
 
 #endif /* ModeGameScene_h */

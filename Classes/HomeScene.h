@@ -16,11 +16,11 @@ USING_NS_CC;
 
 class HomeScene : public Layer {
 public:
-  Size winsize;
-  ui::Button* btnPlay;
-  ui::Button* btnPuzzle;
-  ui::Button* btnMore;
-  ui::Button* btnHelp;
+  Size winSize;
+  ui::Button* playButton;
+  ui::Button* choseModeButton;
+  ui::Button* moreGameButton;
+  ui::Button* helpButton;
 public:
   HomeScene();
   virtual bool init();
@@ -28,9 +28,6 @@ public:
   static Scene* createHomeScene();
   CREATE_FUNC(HomeScene);
   void createButton();
-  void btnClickButtonHome(Ref* pSender);
-  
-  void onEnter();
-  void onExit();
+  void handleClickButtonHome(Ref* pSender);
 };
 #endif /* HomeScene_h */

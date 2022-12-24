@@ -25,8 +25,8 @@ public class AndroidAdManager {
 
     public AndroidAdManager(Activity activity) {
         this.activity = activity;
-        top_bannerId = activity.getBaseContext().getString(R.string.top_bannerId);
-        bottom_bannerId = activity.getBaseContext().getString(R.string.bottom_bannerId);
+        top_bannerId = activity.getBaseContext().getString(R.string.bannerId);
+        bottom_bannerId = activity.getBaseContext().getString(R.string.bannerId);
         interstitialId = activity.getBaseContext().getString(R.string.interstitialId);
         setupAdBannerView();
     }

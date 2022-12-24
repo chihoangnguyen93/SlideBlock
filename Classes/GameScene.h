@@ -16,34 +16,21 @@
 #include "ui/CocosGUI.h"
 USING_NS_CC;
 
-class GameScene : public Layer, DelegateNotification {
+class GameScene : public Layer {
 private:
+  int level, status, modeGame, countMove;
+  int timeRunGameInSeconds;
+  Vec2 previousHeadMatrix, touchBeginPosition;
   Size winSize;
-  
-  int level;
-  int status;
-  int styleGame;
-  int countMove;
-  int timeMinutes;
-  int hightLevel;
-  float timeSecondRunGame;
-  
-  Label* lbLevelGame;
-  Label* lbMoveGame;
-  Label* lbTimeGame;
-  ui::Button* btnBackGame;
-  ui::Button* btnBackSlot;
-  ui::Button* btnNextSlot;
-  
+  Label* levelGameLabel, *countMoveLabel, *timeRunningLabel;
+  ui::Button* backButton, *previousLevelButton, *nextLevelButton;
   GameBoard* gameBoard;
   GameObject* touchObject;
-  Vec2 previousHeadMatrix;
-  Vec2 touchBeginPosition;
-  
+  void updateCounterTime(int timeInSeconds);
 public:
   GameScene();
   virtual ~GameScene();
-  void update(float dt);
+  void updateTimeRemaining(float dt);
   static Scene* createGameScene(int level, int style);
   void  initUpdateUI();
   CREATE_FUNC(GameScene);
@@ -55,10 +42,7 @@ public:
   void createFooterUI();
   void buttonClickGameScene(Ref* pSender);
   void createPopUpPause();
-  void showFullScreenAdvertisement(const char* key, int frequency);
-  void onEnter();
-  void onExit();
-  virtual void sendNotificationForGameScene();
+  void displayGameWinScene();
 };
 
 #endif /* GameScene_h */
