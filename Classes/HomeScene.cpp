@@ -12,6 +12,7 @@
 #include "ModeGameScene.h"
 #include "GameDefine.h"
 #include "AdmobManager.h"
+#include "CustomUserDefault.h"
 
 HomeScene::HomeScene() {}
 
@@ -74,7 +75,8 @@ void HomeScene::handleClickButtonHome(Ref* pSender) {
   int tag = ((ui::Button*)pSender)->getTag();
   switch (tag) {
     case TAG_BTN_PLAY:
-      Director::getInstance()->pushScene(LevelScene::createLevelGameScene(EASY_LEVEL, DIRECTOR_TO_HOME_SCENE));
+      Director::getInstance()->pushScene(LevelScene::createLevelGameScene(CustomUserDefault::GetInstance()->getCurrentModeGame(),
+                                                                          DIRECTOR_TO_HOME_SCENE));
       break;
     case TAG_BTN_HELP:
       Director::getInstance()->pushScene(HelpScene::createHelpScene());

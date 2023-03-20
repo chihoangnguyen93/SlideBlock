@@ -11,6 +11,7 @@
 #include "LevelScene.h"
 #include "GameDefine.h"
 #include "AdmobManager.h"
+#include "CustomUserDefault.h"
 
 Scene* ModeGameScene::createModeGameScene() {
   auto scene = Scene::create();
@@ -97,16 +98,19 @@ void ModeGameScene::handleClickButtonModeGame(Ref* pSender) {
       Director::getInstance()->replaceScene(HomeScene::createHomeScene());
       break;
     case TAG_BTN_EASY_MODE_GAME:
+      CustomUserDefault::GetInstance()->updateCurrentModeGame(EASY_LEVEL);
       Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EASY_LEVEL,DIRECTOR_TO_MODE_SCENE));
       break;
     case TAG_BTN_MEDIUM_MODE_GAME:
+      CustomUserDefault::GetInstance()->updateCurrentModeGame(MEDIUM_LEVEL);
       Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(MEDIUM_LEVEL,DIRECTOR_TO_MODE_SCENE));
       break;
-      
     case TAG_BTN_HARD_MODE_GAME:
+      CustomUserDefault::GetInstance()->updateCurrentModeGame(HARD_LEVEL);
       Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(HARD_LEVEL,DIRECTOR_TO_MODE_SCENE));
       break;
     case TAG_BTN_EXPERT_MODE_GAME:
+      CustomUserDefault::GetInstance()->updateCurrentModeGame(EXPERT_LEVEL);
       Director::getInstance()->replaceScene(LevelScene::createLevelGameScene(EXPERT_LEVEL,DIRECTOR_TO_MODE_SCENE));
       break;
     default: break;

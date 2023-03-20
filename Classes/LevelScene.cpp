@@ -42,16 +42,21 @@ void LevelScene::initUI() {
   this->addChild(backButton,1234);
     
   Sprite* headerSprite;
-  if(modeGame == EASY_LEVEL) {
-    headerSprite = Sprite::create("box_easy.png");
-  } else if(modeGame == MEDIUM_LEVEL) {
-    headerSprite = Sprite::create("box_normal.png");
-  } else if(modeGame == HARD_LEVEL) {
-    headerSprite = Sprite::create("box_hard.png");
-  } else {
-    headerSprite = Sprite::create("box_expert.png");
-  }
   
+  switch (modeGame) {
+    case EASY_LEVEL:
+      headerSprite = Sprite::create("box_easy.png");
+      break;
+    case MEDIUM_LEVEL:
+      headerSprite = Sprite::create("box_normal.png");
+      break;
+    case HARD_LEVEL:
+      headerSprite = Sprite::create("box_hard.png");
+      break;
+    case EXPERT_LEVEL:
+      headerSprite = Sprite::create("box_expert.png");
+      break;
+  }
   headerSprite->setPosition(Vec2(winSize.width/2, winSize.height*0.8));
   this->addChild(headerSprite,2);
 

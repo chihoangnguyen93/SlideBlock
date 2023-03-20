@@ -31,6 +31,10 @@ public:
   int getBestMove(int modeGame, int level);
   void setBestMove(int modeGame, int level, int newValue);
   bool shouldDisplayFullAdMod(const char* key, int newValue);
+    
+  int getCurrentModeGame();
+  void finishCurrentModeGame();
+  void updateCurrentModeGame(int modeGame);
 };
 
 #endif /* CustomUserDefault_h */

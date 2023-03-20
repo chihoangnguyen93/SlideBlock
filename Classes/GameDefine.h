@@ -20,6 +20,7 @@
 
 #define TIME_RUN_WIN_ANIMATION 0.1
 
+#define CURRENT_MODE_GAME "CurrentModeGame"
 #define EASY_LEVEL 1
 #define MEDIUM_LEVEL 2
 #define HARD_LEVEL 3

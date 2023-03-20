@@ -21,27 +21,33 @@ CustomUserDefault::~CustomUserDefault() {}
 CustomUserDefault:: CustomUserDefault() {}
 
 int CustomUserDefault::getHighLevel(int modeGame) {
-  if(modeGame == EASY_LEVEL) {
-    return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_EASY, 1);
-  } else if(modeGame == MEDIUM_LEVEL) {
-    return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_MEDIUM, 1);
-  } else if(modeGame == HARD_LEVEL) {
-    return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_HARD, 1);
-  } else {
-    return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_EXPERT, 1);
+  switch (modeGame) {
+    case EASY_LEVEL:
+      return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_EASY, 1);
+    case MEDIUM_LEVEL:
+      return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_MEDIUM, 1);
+    case HARD_LEVEL:
+      return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_HARD, 1);
+    case EXPERT_LEVEL:
+      return cocos2d::UserDefault::getInstance()->getIntegerForKey(USER_HIGHT_LEVEL_EXPERT, 1);
   }
 }
 
 void CustomUserDefault::setHighLevel(int modeGame, int newValue) {
   if(newValue <= CustomUserDefault::GetInstance()->getHighLevel(modeGame)) { return; }
-  if(modeGame == EASY_LEVEL) {
-    cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_EASY, newValue);
-  } else if (modeGame == MEDIUM_LEVEL) {
-    cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_MEDIUM, newValue);
-  } else if (modeGame == HARD_LEVEL) {
-    cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_HARD, newValue);
-  } else {
-    cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_EXPERT, newValue);
+  switch (modeGame) {
+    case EASY_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_EASY, newValue);
+      break;
+    case MEDIUM_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_MEDIUM, newValue);
+      break;
+    case HARD_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_HARD, newValue);
+      break;
+    case EXPERT_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(USER_HIGHT_LEVEL_EXPERT, newValue);
+      break;
   }
 }
 
@@ -71,4 +77,28 @@ bool CustomUserDefault::shouldDisplayFullAdMod(const char* key, int value) {
     cocos2d::UserDefault::getInstance()->setIntegerForKey(key, currentCount + 1);
     return false;
   }
+}
+
+int CustomUserDefault::getCurrentModeGame() {
+  return cocos2d::UserDefault::getInstance()->getIntegerForKey(CURRENT_MODE_GAME, EASY_LEVEL);
+}
+
+void CustomUserDefault::finishCurrentModeGame() {
+  int currentModel = getCurrentModeGame();
+  switch (currentModel) {
+    case EASY_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(CURRENT_MODE_GAME, MEDIUM_LEVEL);
+      break;
+    case MEDIUM_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(CURRENT_MODE_GAME, HARD_LEVEL);
+      break;
+    case HARD_LEVEL:
+      cocos2d::UserDefault::getInstance()->setIntegerForKey(CURRENT_MODE_GAME, EXPERT_LEVEL);
+      break;
+    default: break;
+  }
+}
+
+void CustomUserDefault::updateCurrentModeGame(int modeGame) {
+  cocos2d::UserDefault::getInstance()->setIntegerForKey(CURRENT_MODE_GAME, modeGame);
 }

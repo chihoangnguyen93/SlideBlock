@@ -261,8 +261,13 @@ void GameScene::displayGameWinScene() {
   CustomUserDefault::GetInstance()->setBestMove(modeGame, level, countMove);
   int nextLevel = level + 1;
   nextLevel = std::min(TOTAL_PAGE_LEVEL * TOTAL_ROW * TOTAL_COLUM, nextLevel);
-  if (nextLevel > TOTAL_PAGE_LEVEL * TOTAL_ROW * TOTAL_COLUM) { return; }
-  CustomUserDefault::GetInstance()->setHighLevel(modeGame, nextLevel);
+  if (nextLevel > TOTAL_PAGE_LEVEL * TOTAL_ROW * TOTAL_COLUM) {
+    nextLevel = 1;
+    CustomUserDefault::GetInstance()->finishCurrentModeGame();
+    modeGame = CustomUserDefault::GetInstance()->getCurrentModeGame();
+  } else {
+    CustomUserDefault::GetInstance()->setHighLevel(modeGame, nextLevel);
+  }
   Director::getInstance()->replaceScene(GameScene::createGameScene(nextLevel, modeGame));
 }
 
